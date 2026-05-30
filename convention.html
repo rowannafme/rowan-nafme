@@ -10,57 +10,43 @@
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <style>
-    /* Convention page-only refinements */
-    /* Equalize card heights in grids on this page */
+    /* Cards in grids stretch to equal height */
     .section .grid > .card,
-    .section .grid > article.card{ display:flex; flex-direction:column; height:100%; }
+    .section .grid > article.card { display: flex; flex-direction: column; height: 100% }
     .section .grid > .card p:last-child,
-    .section .grid > article.card p:last-child{ margin-top:auto; }
+    .section .grid > article.card p:last-child { margin-top: auto }
 
-    /* Tighten hero paragraph spacing */
-    .hero .actions{ margin-top: .75rem !important; }
+    .hero .actions { margin-top: .75rem }
 
-    /* Gallery images: consistent ratio */
-    .convention-thumb{ width:100%; height:260px; object-fit:cover; border-radius:12px; margin:.5rem 0; display:block; }
+    /* Convention photo thumbnails */
+    .convention-thumb { width: 100%; height: 260px; object-fit: cover; border-radius: 12px; margin: .5rem 0; display: block }
 
-    /* FAQ details styling */
-    .faq details{
-      border:1px solid var(--border);
+    /* FAQ accordion */
+    .faq details {
+      border: 1px solid var(--border);
       border-radius: 12px; padding: 10px 14px; margin-bottom: 10px;
       background: rgba(255,255,255,.04);
     }
-    .faq summary{ cursor:pointer; font-weight:700; }
-    .faq summary::-webkit-details-marker{ display:none; }
-    .faq details[open]{ background: rgba(255,255,255,.06); }
-  
-    /* Convention page only: size brand logo (NJMEA) for nav */
-    .site-nav .brand img{ height: 36px; width: auto; }
-    @media (min-width: 900px){ .site-nav .brand img{ height: 40px; } }
-    
-    /* Convention page only: circular crop for NJMEA logo in hero */
-    .logo-avatar{
+    .faq summary { cursor: pointer; font-weight: 700 }
+    .faq summary::-webkit-details-marker { display: none }
+    .faq details[open] { background: rgba(255,255,255,.06) }
+
+    /* Round NJMEA logo in hero */
+    .logo-avatar {
       width: clamp(140px, 20vw, 280px);
       aspect-ratio: 1 / 1;
       border-radius: 999px;
       overflow: hidden;
       box-shadow: var(--shadow);
       margin-inline: auto;
-      background: #fff; /* helps if logo has transparency */
+      background: #fff;
     }
-    .logo-avatar img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;   /* true circular crop */
-      object-position: center;
-      display: block;
-    }
-</style>
+    .logo-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block }
+  </style>
 </head>
 <body>
-  <!-- Shared navbar populated by /assets/js/nav.js -->
   <nav class="site-nav"></nav>
 
-  <!-- Hero -->
   <header class="hero">
     <div class="hero-inner container">
       <div>
@@ -73,13 +59,15 @@
           <a class="btn" href="https://www.eventcreate.com/e/njmeaconference2026" target="_blank" rel="noopener">Register</a>
         </div>
       </div>
-      <div><div class="logo-avatar"><img src="/images/njmea-logo.png" alt="NJMEA logo"></div></div>
+      <div>
+        <div class="logo-avatar">
+          <img src="/images/njmea-logo.png" alt="NJMEA logo">
+        </div>
+      </div>
     </div>
   </header>
+
   <main>
-
-
-    <!-- Top cards: Key Dates / Funding / Logistics -->
     <section class="section" id="overview">
       <div class="container">
         <div class="grid">
@@ -100,7 +88,8 @@
           </article>
 
           <article class="card">
-            <a id="travel"></a><div class="kicker">Logistics</div>
+            <a id="travel"></a>
+            <div class="kicker">Logistics</div>
             <h2>Travel &amp; Housing</h2>
             <p>We coordinate carpools and room shares at the Sheraton Atlantic City Convention Center Hotel. Standard plan is up to four per room; target share is <strong>$50/person</strong> for hotel costs.</p>
           </article>
@@ -122,7 +111,7 @@
             <div class="card" style="margin:0">
               <div class="kicker">Join / Renew</div>
               <h3>NAfME Membership</h3>
-              <p>If you’re a top-20 point earner, please wait for the group registration in spring to receive the free membership.</p>
+              <p>If you're a top-20 point earner, please wait for the group registration in spring to receive the free membership.</p>
               <a class="btn" href="https://nafme.my.site.com/joinapi__login?id=a201U000000NoT4QAK&order=2" target="_blank" rel="noopener">Membership</a>
             </div>
             <div class="card" style="margin:0">
@@ -149,7 +138,7 @@
           <article class="card">
             <h3>Accommodations</h3>
             <img src="/images/convention/sheraton-exterior.jpg" alt="Sheraton exterior" class="convention-thumb">
-            <p>We’ll stay at the Sheraton (attached to the convention center). Amenities include a 24-hour fitness center, gift shops, and a ballroom. Rooms sleep up to four; we’ll group assignments and collect preferences.</p>
+            <p>We'll stay at the Sheraton (attached to the convention center). Amenities include a 24-hour fitness center, gift shops, and a ballroom. Rooms sleep up to four; we'll group assignments and collect preferences.</p>
           </article>
 
           <article class="card">
@@ -179,9 +168,6 @@
       </div>
     </section>
 
-
-
-    <!-- What to Expect -->
     <section class="section">
       <div class="container">
         <article class="card">
@@ -192,41 +178,31 @@
         </article>
       </div>
     </section>
-
-    <!-- Gallery: Events & Experiences -->
-
-    <!-- Registration Information -->
   </main>
 
+  <section class="section" id="faq">
+    <div class="container faq">
+      <h2>Frequently Asked Questions</h2>
+      <details>
+        <summary>Who can attend the NJMEA conference?</summary>
+        <p>Any Rowan student can attend. If you're not in the points cohort, you're still welcome—just plan to cover your own registration and membership fees.</p>
+      </details>
+      <details>
+        <summary>How do carpools and room shares work?</summary>
+        <p>We'll collect preferences and group students into carpools and hotel rooms (up to four per room) ahead of the conference.</p>
+      </details>
+      <details>
+        <summary>What should I budget?</summary>
+        <p>Top points earners receive free registration and NAfME membership. Everyone splits the hotel cost (target <strong>$50/person</strong>) and handles meals on their own.</p>
+      </details>
+      <details>
+        <summary>When will the detailed schedule be available?</summary>
+        <p>The official schedule usually posts closer to the event. We'll link it on this page as soon as it's live and highlight recommended sessions.</p>
+      </details>
+    </div>
+  </section>
 
-    <!-- FAQ -->
-    <section class="section" id="faq">
-      <div class="container faq">
-        <h2>Frequently Asked Questions</h2>
-        <details>
-          <summary>Who can attend the NJMEA conference?</summary>
-          <p>Any Rowan student can attend. If you’re not in the points cohort, you’re still welcome—just plan to cover your own registration and membership fees.</p>
-        </details>
-        <details>
-          <summary>How do carpools and room shares work?</summary>
-          <p>We’ll collect preferences and group students into carpools and hotel rooms (up to four per room) ahead of the conference.</p>
-        </details>
-        <details>
-          <summary>What should I budget?</summary>
-          <p>Top points earners receive free registration and NAfME membership. Everyone splits the hotel cost (target <strong>$50/person</strong>) and handles meals on their own.</p>
-        </details>
-        <details>
-          <summary>When will the detailed schedule be available?</summary>
-          <p>The official schedule usually posts closer to the event. We’ll link it on this page as soon as it’s live and highlight recommended sessions.</p>
-        </details>
-      </div>
-    </section>
-
-
-  <!-- Shared footer -->
   <footer class="site-footer"></footer>
-
-  <!-- Shared nav/foot loader -->
   <script src="/assets/js/nav.js" defer></script>
 </body>
 </html>

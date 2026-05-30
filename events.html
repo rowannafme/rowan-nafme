@@ -10,240 +10,101 @@
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <style>
-    /* Events page ONLY: use convention .btn styling for filter chips */
-    .filters .chips{ display:flex; flex-wrap:wrap; gap:.5rem; }
-    .filters .chips .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      height: var(--tap);
-      padding: 0 18px;
-      border:1.6px solid var(--border);
-      border-radius:999px;
+    /* Filter chips */
+    .filters .chips { display: flex; flex-wrap: wrap; gap: .5rem }
+    .filters .chip {
       background: rgba(255,255,255,.06);
       color: var(--text);
-      font-weight:700;
-      box-shadow: var(--shadow);
-      cursor:pointer;
-      transition: transform .06s ease, background .2s ease, border-color .2s ease, filter .2s ease;
-    }
-    .filters .chips .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
-    .filters .chips .btn:focus-visible{ outline: 2px solid var(--brand-cyan); outline-offset: 2px; }
-
-    /* Toggle state driven by aria-pressed */
-    .filters .chips .btn[aria-pressed="true"]{
-      background: var(--brand-gold, #f5c518);
-      color: #111;
-      border-color: transparent;
-      filter: brightness(0.98);
-    }
-
-    /* Make in-page buttons gold (exclude nav) */
-    #eventsList .button,
-    #eventsList .btn{
-      background: var(--brand-gold, #f5c518);
-      color: #111;
-      border-color: transparent;
-      box-shadow: var(--shadow);
-    }
-    #eventsList .button:hover,
-    #eventsList .btn:hover{ transform: translateY(-1px); filter: brightness(.95); }
-
-    .filters .chips .btn[aria-pressed="true"]{ filter: brightness(.92); }
-
-    /* Neutral filter chips (not gold) */
-    .filters .chips .button,
-    .filters .chips .btn{
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      border:1.6px solid var(--border);
-      box-shadow: var(--shadow);
-    }
-    .filters .chips .button:hover,
-    .filters .chips .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
-    .filters .chips .button[aria-pressed="true"],
-    .filters .chips .btn[aria-pressed="true"]{
-      background: rgba(255,255,255,.14);
-      color: var(--text);
-      border-color: var(--border);
-      filter: none;
-    }
-
-    /* Filters layout: chips left, toggle right */
-    .filters .filters-bar{ display:flex; justify-content:space-between; align-items:center; gap:12px; }
-    .filters .filters-right{ display:flex; align-items:center; }
-
-    /* Neutral filter chips (ensure not gold) */
-    .filters .chip{
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      border:1.6px solid var(--border);
+      border: 1.6px solid var(--border);
       box-shadow: var(--shadow);
       border-radius: 999px;
       padding: 0 18px;
       height: var(--tap);
       font-weight: 700;
       cursor: pointer;
+      font-size: 0.95rem;
       transition: transform .06s ease, background .2s ease;
     }
-    .filters .chip:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
-    .filters .chip[aria-pressed="true"]{ background: rgba(255,255,255,.14); }
+    .filters .chip:hover { transform: translateY(-1px); background: rgba(255,255,255,.10) }
+    .filters .chip[aria-pressed="true"] { background: rgba(255,255,255,.14); border-width: 2px }
 
-    /* Keep card buttons gold (scope to events list only) */
-    #eventsList .button, #eventsList .btn{
-      background: var(--brand-gold, #f5c518); color:#111; border-color:transparent; box-shadow: var(--shadow);
-    }
-    #eventsList .button:hover, #eventsList .btn:hover{ transform: translateY(-1px); filter: brightness(.95); }
+    /* Filters bar: chips on the left, past-events toggle on the right */
+    .filters .filters-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px }
+    .filters .filters-right { display: flex; align-items: center }
 
-    /* Distinct look for "Past events" switch */
-    .filters .switch{
+    /* Past events toggle switch */
+    .filters .switch {
       position: relative;
       display: inline-flex; align-items: center; gap: 8px;
-      padding-right: 52px; /* room for knob */
+      padding-right: 52px;
       background: transparent;
       color: var(--text);
       border: 1.6px solid var(--border);
       border-radius: 999px;
       height: var(--tap);
       font-weight: 800;
+      font-size: 0.95rem;
     }
-    .filters .switch svg{ width: 18px; height: 18px; }
-    .filters .switch .knob{
+    .filters .switch svg { width: 18px; height: 18px }
+    .filters .switch .knob {
       position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
       width: 34px; height: 18px; border-radius: 999px;
       background: rgba(255,255,255,.10);
       border: 1px solid var(--border);
       transition: background .2s ease;
     }
-    .filters .switch .knob::after{
-      content:""; position:absolute; top:2px; left:2px;
+    .filters .switch .knob::after {
+      content: ""; position: absolute; top: 2px; left: 2px;
       width: 12px; height: 12px; border-radius: 999px;
       background: var(--muted);
       transition: transform .2s ease, background .2s ease;
     }
-    .filters .switch:hover{ transform: translateY(-1px); background: rgba(255,255,255,.05); }
-    .filters .switch[aria-pressed="true"]{
-      background: rgba(255,255,255,.14);
-      color: var(--text);
-      border-color: var(--border);
-    }
-    .filters .switch[aria-pressed="true"] .knob{ background: rgba(255,255,255,.18); border-color: var(--border); }
-    .filters .switch[aria-pressed="true"] .knob::after{ transform: translateX(14px); background: var(--brand-cyan); }
+    .filters .switch:hover { transform: translateY(-1px); background: rgba(255,255,255,.05) }
+    .filters .switch[aria-pressed="true"] { background: rgba(255,255,255,.14); border-color: var(--border) }
+    .filters .switch[aria-pressed="true"] .knob { background: rgba(255,255,255,.18); border-color: var(--border) }
+    .filters .switch[aria-pressed="true"] .knob::after { transform: translateX(14px); background: var(--brand-cyan) }
 
-    /* Events page: normalize button text sizes (cards, chips, switch) */
-    #eventsList .button,
-    .filters .chip,
-    .filters .switch{
-      font-size: 0.95rem;
-      font-weight: 700;
-      line-height: 1.1;
-    }
-    /* Ensure card buttons have consistent height & alignment */
-    #eventsList .button{
-      display:inline-flex; align-items:center; justify-content:center;
+    /* Event card buttons */
+    #eventsList .button {
+      display: inline-flex; align-items: center; justify-content: center;
       height: var(--tap); padding: 0 18px;
+      background: var(--brand-gold, #f5c518); color: #111;
+      border-color: transparent; box-shadow: var(--shadow);
+      font-size: 0.95rem; font-weight: 700;
+    }
+    #eventsList .button:hover { transform: translateY(-1px); filter: brightness(.95) }
+
+    /* Event card photo */
+    #eventsList .event-photo {
+      width: 100%; aspect-ratio: 16 / 9; height: auto;
+      display: block; object-fit: cover;
+      border-radius: 14px; background: rgba(0,0,0,.2);
     }
 
-    /* Card images: fixed ratio + rounded corners */
-    #eventsList .event-photo{
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      height: auto;
-      display: block;
-      object-fit: cover;
-      border-radius: 14px;
-      background: rgba(0,0,0,.2);
+    /* Left-align card body content */
+    #eventsList .event-card .card-body { text-align: left; align-items: flex-start }
+    #eventsList .event-actions { display: flex; gap: .5rem; flex-wrap: wrap; justify-content: flex-start; margin-top: 1rem }
+
+    /* Modal: centered header, close button top-right */
+    .modal .modal-header {
+      display: flex; align-items: center; justify-content: center;
+      position: relative; text-align: center;
+    }
+    .modal .modal-header .close-btn { position: absolute; right: 10px; top: 10px }
+    .modal .modal-content section { text-align: center }
+    .modal .modal-content section > img.convention-thumb {
+      width: clamp(240px, 60vw, 560px); aspect-ratio: 16 / 9; height: auto;
+      display: block; margin: 0 auto 12px auto;
+      object-fit: cover; border-radius: 16px;
+    }
+    .modal .modal-content section > div {
+      display: flex; gap: .5rem; flex-wrap: wrap;
+      justify-content: center; margin-top: 1rem;
     }
 
-    /* Modal (events popups): center every element */
-    .modal .modal-header{
-      display:flex; align-items:center; justify-content:center; position:relative;
-      text-align:center;
-    }
-    .modal .modal-header .close-btn{ position:absolute; right:10px; top:10px; }
-    .modal .modal-content section{
-      text-align:center;
-    }
-    .modal .modal-content section > img.convention-thumb{
-      width: clamp(240px, 60vw, 560px);
-      aspect-ratio: 16 / 9;
-      height: auto;
-      display:block;
-      margin: 0 auto 12px auto;
-      object-fit: cover;
-      border-radius: 16px;
-    }
-    /* Center the buttons row inside the modal section */
-    .modal .modal-content section > div{
-      display:flex; gap:.5rem; flex-wrap:wrap; justify-content:center;
-    }
-
-    /* Multi-select pressed emphasize */
-    .filters .chip[aria-pressed="true"]{ border-width:2px; }
-    /* Center content inside event cards */
-#eventsList .event-card .card-body{
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Keep the action buttons side-by-side and centered */
-#eventsList .event-actions{
-  display: flex;
-  gap: .5rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-/* Left-align meta (date • location) and tags inside centered cards */
-#eventsList .event-card .event-meta,
-#eventsList .event-card .event-badges{
-  align-self: stretch;   /* take full card width */
-  text-align: left;      /* left-align text */
-}
-
-/* (Optional) match this behavior in the popup too */
-.modal .event-meta,
-.modal .event-badges{
-  text-align: left;
-  align-self: stretch;
-}
-
-/* Add more breathing room above the buttons row */
-#eventsList .event-actions {
-  margin-top: 1rem; /* was .5rem → now doubled */
-}
-
-.modal .modal-content section > div {
-  margin-top: 1rem; /* was .5rem inline → override */
-}
-/* Left-align everything inside event cards */
-#eventsList .event-card .card-body{
-  text-align: left;
-  align-items: flex-start;   /* was center */
-}
-
-/* Keep buttons side-by-side (left-aligned) */
-#eventsList .event-actions{
-  justify-content: flex-start;   /* was center */
-}
-
-/* Force-wrap helper for chips */
-.filters .chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .5rem;
-}
-
-.filters .chips .chip-break{
-  flex-basis: 100%;   /* take full width => next items go to new row */
-  height: 0;          /* no visible height */
-}
-
-/* On small screens, let chips flow naturally (remove the forced break) */
-@media (max-width: 640px){
-  .filters .chips .chip-break{ display: none; }
-}
-
-
+    /* Force chips onto a new row at a natural break point */
+    .filters .chips .chip-break { flex-basis: 100%; height: 0 }
+    @media (max-width: 640px) { .filters .chips .chip-break { display: none } }
   </style>
 </head>
 <body>
@@ -268,12 +129,10 @@
               <button class="button chip" data-filter="events" aria-pressed="false">Events</button>
               <button class="button chip" data-filter="meeting" aria-pressed="false">Meetings</button>
               <button class="button chip" data-filter="professional-development" aria-pressed="false">Professional Developments</button>
-	      
               <button class="button chip" data-filter="workshop" aria-pressed="false">Workshop</button>
-              <!-- force next chips onto a new row -->
               <span class="chip-break" aria-hidden="true"></span>
               <button class="button chip" data-filter="volunteer" aria-pressed="false">Volunteer</button>
-	      <button class="button chip" data-filter="performance" aria-pressed="false">Performances</button>
+              <button class="button chip" data-filter="performance" aria-pressed="false">Performances</button>
             </div>
             <div class="filters-right">
               <button id="togglePast" class="button switch" aria-pressed="false" title="Show past events">
@@ -288,24 +147,23 @@
       </div>
     </section>
   </main>
-<!-- Simple notice modal for missing RSVP links -->
-<div class="modal" id="notice-modal" role="dialog" aria-modal="true" aria-labelledby="notice-title" hidden>
-  <div class="modal-overlay" data-close="True"></div>
-  <div class="modal-content">
-    <div class="modal-header">
-      <h3 class="modal-title" id="notice-title">Heads up</h3>
-      <button class="close-btn" data-close="True" aria-label="Close">✕</button>
+
+  <!-- Notice shown when an RSVP link isn't available yet -->
+  <div class="modal" id="notice-modal" role="dialog" aria-modal="true" aria-labelledby="notice-title" hidden>
+    <div class="modal-overlay" data-close="True"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="notice-title">Heads up</h3>
+        <button class="close-btn" data-close="True" aria-label="Close">✕</button>
+      </div>
+      <section>
+        <p>This form is not open yet. Check back closer to the event.</p>
+      </section>
     </div>
-    <section>
-      <p>This form is not open yet. Check back closer to the event.</p>
-    </section>
   </div>
-</div>
 
   <footer class="site-footer"></footer>
   <script src="/assets/js/nav.js" defer></script>
-
-  <!-- Removed the small "past events" script block -->
 
   <script>
   (function(){
@@ -315,7 +173,7 @@
     const chipAll = chipsBar?.querySelector('button[data-filter="all"]');
     const chipButtons = Array.from(chipsBar?.querySelectorAll('button[data-filter]') || []);
     const pastToggle = document.getElementById('togglePast');
-    const activeFilters = new Set(); // empty means 'all'
+    const activeFilters = new Set();
 
     function parseCSV(text){
       const rows = [];
@@ -331,7 +189,7 @@
           if(c === '"') inQuotes = true;
           else if(c === ','){ row.push(field); field=''; }
           else if(c === '\n'){ row.push(field); field=''; rows.push(row); row=[]; }
-          else if(c === '\r'){ /* ignore */ }
+          else if(c === '\r'){ /* skip */ }
           else { field += c; }
         }
         i++;
@@ -343,7 +201,7 @@
     function toRecords(rows){
       const header = rows.shift().map(h => h.trim().toLowerCase());
       return rows.map(r => {
-        const obj = { };
+        const obj = {};
         header.forEach((h, idx) => obj[h] = (r[idx] ?? '').trim());
         return obj;
       });
@@ -354,8 +212,7 @@
       const parts = dStr.split(/[\/.-]/).map(s => s.trim());
       if(parts.length < 3) return null;
       let [m,d,y] = parts;
-      m = parseInt(m,10); d = parseInt(d,10);
-      y = parseInt(y,10);
+      m = parseInt(m,10); d = parseInt(d,10); y = parseInt(y,10);
       if(y < 100) y = 2000 + y;
       return new Date(y, m-1, d);
     }
@@ -408,66 +265,61 @@
       return s.split(/[,;/]+/).map(v => v.trim()).filter(Boolean);
     }
 
-    /* === NEW: unified RSVP label helper === */
     function getBtnLabel(ev){
       const tags = new Set((ev.tagSlugs || []).map(String));
-      if (tags.has('volunteer')) return 'Sign up';
-       if (tags.has('performance') || tags.has('performances')) return 'Tickets';
-      if (tags.has('event') || tags.has('events') || tags.has('professional-development')) return 'Check in';
+      if(tags.has('volunteer')) return 'Sign up';
+      if(tags.has('performance') || tags.has('performances')) return 'Tickets';
+      if(tags.has('event') || tags.has('events') || tags.has('professional-development')) return 'Check in';
       return 'Attendance';
     }
 
-   function cardHTML(ev){
-  const badges = ev.tags.map(t => '<span class="badge" data-tag="'+tagSlug(t)+'">'+t+'</span>').join(' ');
-  const btnLabel = getBtnLabel(ev);
-  const hasLink = Boolean(ev.signin_link);
-  const signinHref = hasLink ? ev.signin_link : '#';
-
-  return (
-    '<article class="card event-card" data-tags="' + ev.tagSlugs.join(' ') + '" data-when="' + ev.when + '">' +
-      '<img src="' + (ev.image_url||'') + '" alt="' + (ev.title||'') + ' photo" class="event-photo convention-thumb" onerror="this.onerror=null;this.src=\'/images/placeholder.png\'">' +
-      '<div class="card-body">' +                                                    // ← class for centering
-        '<h3>' + (ev.title||'') + '</h3>' +
-        '<p class="kicker event-meta"><strong>' + (ev.datePretty||'') + '</strong>' + (ev.location ? ' • ' + ev.location : '') + '</p>' +
-        (badges ? '<div class="event-badges" style="margin:6px 0 8px 0">' + badges + '</div>' : '') +
-        (ev.description ? '<p>' + ev.description + '</p>' : '') +
-        '<div class="event-actions">' +                                               // ← keep buttons inline
-          '<button class="button" data-modal="modal-' + ev.id + '">Details</button>' +
-          '<a class="button" data-action="signin" data-has-link="' + (hasLink ? '1':'0') + '" href="' + signinHref + '" target="_blank" rel="noopener">' + btnLabel + '</a>' +
-        '</div>' +
-      '</div>' +
-    '</article>'
-  );
-}
-
-
+    function cardHTML(ev){
+      const badges = ev.tags.map(t => '<span class="badge" data-tag="'+tagSlug(t)+'">'+t+'</span>').join(' ');
+      const btnLabel = getBtnLabel(ev);
+      const hasLink = Boolean(ev.signin_link);
+      const signinHref = hasLink ? ev.signin_link : '#';
+      return (
+        '<article class="card event-card" data-tags="' + ev.tagSlugs.join(' ') + '" data-when="' + ev.when + '">' +
+          '<img src="' + (ev.image_url||'') + '" alt="' + (ev.title||'') + ' photo" class="event-photo convention-thumb" onerror="this.onerror=null;this.src=\'/images/placeholder.png\'">' +
+          '<div class="card-body">' +
+            '<h3>' + (ev.title||'') + '</h3>' +
+            '<p class="kicker event-meta"><strong>' + (ev.datePretty||'') + '</strong>' + (ev.location ? ' • ' + ev.location : '') + '</p>' +
+            (badges ? '<div class="event-badges" style="margin:6px 0 8px 0">' + badges + '</div>' : '') +
+            (ev.description ? '<p>' + ev.description + '</p>' : '') +
+            '<div class="event-actions">' +
+              '<button class="button" data-modal="modal-' + ev.id + '">Details</button>' +
+              '<a class="button" data-action="signin" data-has-link="' + (hasLink ? '1':'0') + '" href="' + signinHref + '" target="_blank" rel="noopener">' + btnLabel + '</a>' +
+            '</div>' +
+          '</div>' +
+        '</article>'
+      );
+    }
 
     function modalHTML(ev){
-  const btnLabel = getBtnLabel(ev);
-  const hasLink = Boolean(ev.signin_link);
-  const signinHref = hasLink ? ev.signin_link : '#';
-
-  return (
-    '<div class="modal" id="modal-' + ev.id + '" role="dialog" aria-modal="true" aria-labelledby="modal-' + ev.id + '-title" hidden>' +
-      '<div class="modal-overlay" data-close="True"></div>' +
-      '<div class="modal-content">' +
-        '<div class="modal-header">' +
-          '<h3 class="modal-title" id="modal-' + ev.id + '-title">' + (ev.title||'') + '</h3>' +
-          '<button class="close-btn" data-close="True" aria-label="Close">✕</button>' +
-        '</div>' +
-        '<section>' +
-          '<img src="' + (ev.image_url||'') + '" alt="' + (ev.title||'') + ' photo" class="convention-thumb" onerror="this.onerror=null;this.src=\'/images/placeholder.png\'">' +
-          '<p class="kicker"><strong>' + (ev.datePretty||'') + '</strong>' + (ev.location ? ' • ' + ev.location : '') + '</p>' +
-          (ev.details ? ('<p>' + ev.details + '</p>') : '') +
-          '<div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-top:.5rem">' +
-            '<a class="button" href="' + gcalLink(ev) + '" target="_blank" rel="noopener">Add to Calendar</a>' +
-            '<a class="button" data-action="signin" data-has-link="' + (hasLink ? '1':'0') + '" href="' + signinHref + '" target="_blank" rel="noopener">' + btnLabel + '</a>' +
+      const btnLabel = getBtnLabel(ev);
+      const hasLink = Boolean(ev.signin_link);
+      const signinHref = hasLink ? ev.signin_link : '#';
+      return (
+        '<div class="modal" id="modal-' + ev.id + '" role="dialog" aria-modal="true" aria-labelledby="modal-' + ev.id + '-title" hidden>' +
+          '<div class="modal-overlay" data-close="True"></div>' +
+          '<div class="modal-content">' +
+            '<div class="modal-header">' +
+              '<h3 class="modal-title" id="modal-' + ev.id + '-title">' + (ev.title||'') + '</h3>' +
+              '<button class="close-btn" data-close="True" aria-label="Close">✕</button>' +
+            '</div>' +
+            '<section>' +
+              '<img src="' + (ev.image_url||'') + '" alt="' + (ev.title||'') + ' photo" class="convention-thumb" onerror="this.onerror=null;this.src=\'/images/placeholder.png\'">' +
+              '<p class="kicker"><strong>' + (ev.datePretty||'') + '</strong>' + (ev.location ? ' • ' + ev.location : '') + '</p>' +
+              (ev.details ? ('<p>' + ev.details + '</p>') : '') +
+              '<div>' +
+                '<a class="button" href="' + gcalLink(ev) + '" target="_blank" rel="noopener">Add to Calendar</a>' +
+                '<a class="button" data-action="signin" data-has-link="' + (hasLink ? '1':'0') + '" href="' + signinHref + '" target="_blank" rel="noopener">' + btnLabel + '</a>' +
+              '</div>' +
+            '</section>' +
           '</div>' +
-        '</section>' +
-      '</div>' +
-    '</div>'
-  );
-}
+        '</div>'
+      );
+    }
 
     function openModal(m){ m?.classList.add('open'); m?.removeAttribute('hidden'); }
     function closeModal(m){ m?.classList.remove('open'); m?.setAttribute('hidden',''); }
@@ -475,40 +327,36 @@
     function attachModalHandlers(){
       document.querySelectorAll('[data-modal]').forEach(btn => {
         btn.addEventListener('click', () => {
-          const id = btn.getAttribute('data-modal');
-          const m = document.getElementById(id);
+          const m = document.getElementById(btn.getAttribute('data-modal'));
           openModal(m);
         });
       });
       document.querySelectorAll('.modal').forEach(m => {
-        m.addEventListener('click', (e) => { if (e.target.classList.contains('modal-overlay')) closeModal(m); });
+        m.addEventListener('click', (e) => { if(e.target.classList.contains('modal-overlay')) closeModal(m); });
         m.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => closeModal(m)));
       });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelectorAll('.modal.open').forEach(closeModal); });
+      document.addEventListener('keydown', (e) => { if(e.key === 'Escape') document.querySelectorAll('.modal.open').forEach(closeModal); });
     }
 
-function showNotice(){
-  const m = document.getElementById('notice-modal');
-  openModal(m);
-}
+    function showNotice(){
+      openModal(document.getElementById('notice-modal'));
+    }
 
-// Intercept clicks on RSVP/Sign in/Sign up/Attendance buttons when link is missing
-document.addEventListener('click', (e) => {
-  const a = e.target.closest('a.button[data-action="signin"]');
-  if (!a) return;
-  const hasLink = a.getAttribute('data-has-link') === '1';
-  const href = a.getAttribute('href');
-  if (!hasLink || !href || href === '#') {
-    e.preventDefault();
-    showNotice();
-  }
-});
-
+    // Intercept RSVP button clicks when no link exists yet
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a.button[data-action="signin"]');
+      if(!a) return;
+      const hasLink = a.getAttribute('data-has-link') === '1';
+      const href = a.getAttribute('href');
+      if(!hasLink || !href || href === '#'){
+        e.preventDefault();
+        showNotice();
+      }
+    });
 
     function render(events){
       events.sort((a,b) => a.startDateTime - b.startDateTime);
-      const cards = events.map(cardHTML).join('\n');
-      listEl.innerHTML = cards + '\n' + events.map(modalHTML).join('\n');
+      listEl.innerHTML = events.map(cardHTML).join('\n') + '\n' + events.map(modalHTML).join('\n');
       attachModalHandlers();
       applyPastVisibility();
       applyFilters();
@@ -520,35 +368,19 @@ document.addEventListener('click', (e) => {
     }
 
     function matchesFilters(card){
-  if (activeFilters.size === 0) return true;
-
-  const tags = (card.getAttribute('data-tags') || '').split(/\s+/);
-
-  function tagMatches(filter){
-    if (filter === 'events') {
-      return (
-        tags.includes('workshop') ||
-        tags.includes('convention') ||
-        tags.includes('event') ||
-        tags.includes('events')
-      );
+      if(activeFilters.size === 0) return true;
+      const tags = (card.getAttribute('data-tags') || '').split(/\s+/);
+      function tagMatches(filter){
+        if(filter === 'events') return tags.includes('workshop') || tags.includes('convention') || tags.includes('event') || tags.includes('events');
+        if(filter === 'performance') return tags.includes('performance') || tags.includes('performances');
+        return tags.includes(filter);
+      }
+      for(const f of activeFilters){ if(tagMatches(f)) return true; }
+      return false;
     }
-    if (filter === 'performance') {
-      return tags.includes('performance') || tags.includes('performances');
-    }
-    return tags.includes(filter);
-  }
-
-  for (const f of activeFilters) {
-    if (tagMatches(f)) return true;
-  }
-  return false;
-}
-
 
     function applyFilters(){
-      const cards = Array.from(listEl.querySelectorAll('.card'));
-      cards.forEach(card => {
+      Array.from(listEl.querySelectorAll('.card')).forEach(card => {
         const match = matchesFilters(card);
         const pastOk = pastToggle?.getAttribute('aria-pressed') === 'true' || card.getAttribute('data-when') !== 'past';
         card.style.display = (match && pastOk) ? '' : 'none';
@@ -582,7 +414,6 @@ document.addEventListener('click', (e) => {
     fetch(CSV_URL, {cache:'no-store'}).then(r => r.text()).then(t => {
       const rows = parseCSV(t);
       const recs = toRecords(rows);
-
       const events = recs.map(r => {
         const date = parseDate(r.date);
         const st = parseTime(r.start_time);
@@ -618,8 +449,6 @@ document.addEventListener('click', (e) => {
       console.error('CSV load failed', err);
       listEl.innerHTML = '<p class="kicker">Could not load events. Please try again later.</p>';
     });
-
-
 
   })();
   </script>

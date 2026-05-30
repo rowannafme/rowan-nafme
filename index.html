@@ -9,163 +9,50 @@
   <link rel="icon" href="/images/logo.png">
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <!-- Home-only styles for Connect/Gallery and hero tweaks -->
   <style>
-    /* Keep hero CTAs tidy on small screens */
-    .hero .hero-inner .btn{ white-space: nowrap; }
+    /* Keep hero buttons from wrapping on small screens */
+    .hero .hero-inner .btn { white-space: nowrap }
 
-    /* Connect: logo buttons layout */
-    .logo-strip{
+    /* Partner logo tiles */
+    .connect-tiles {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
       margin-top: 12px;
     }
-    .btn.icon{
-      display: inline-flex; align-items: center; gap: 10px;
-      padding-left: 14px; padding-right: 16px;
-    }
-    .btn.icon img{
-      width: 20px; height: 20px; object-fit: contain;
-      filter: drop-shadow(0 0 0 transparent);
-    }
-
-    /* 3-up photo preview under Connect */
-    .gallery-preview{
+    .connect-tiles .tile {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 14px;
+      place-items: center;
+      aspect-ratio: 16 / 9;
+      padding: 16px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border: 1.6px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: transform .15s ease, filter .2s ease, background .2s ease;
     }
-    .gallery-preview img{
-      width: 100%; height: auto; display: block; object-fit: cover;
-      aspect-ratio: 16 / 9; border-radius: 14px;
-      background: rgba(0,0,0,.2);
+    .connect-tiles .tile:hover { transform: translateY(-2px); filter: brightness(1.03) }
+    .connect-tiles .tile img {
+      width: 80%;
+      max-width: 320px;
+      max-height: 80%;
+      height: auto;
+      object-fit: contain;
     }
-    @media (max-width: 720px){
-      .gallery-preview{ grid-template-columns: 1fr 1fr; }
+    @media (max-width: 720px) {
+      .connect-tiles { grid-template-columns: 1fr 1fr }
     }
-    /* Connect: clickable photo tiles */
-.connect-tiles{
-  display: grid;
-  grid-template-columns: repeat(3, minmax(220px,1fr));
-  gap: 12px;
-  margin-top: 12px;
-}
 
-.connect-tiles .tile{
-  display: block;
-  border-radius: 14px;
-  overflow: hidden;
-  background: rgba(255,255,255,.06);
-  border: 1.6px solid var(--border);
-  box-shadow: var(--shadow);
-  transition: transform .15s ease, filter .2s ease;
-}
+    /* Tight spacing in the Points section */
+    #points .card h3 { margin-bottom: .06rem; line-height: 1.10 }
+    #points .card h3 + ul { margin-top: .025rem }
+    #points .card ul { margin: 0; padding-left: 1.0rem }
+    #points .card li { margin: .04rem 0; line-height: 1.24 }
 
-.connect-tiles .tile:hover{
-  transform: translateY(-2px);
-  filter: brightness(1.03);
-}
-
-.connect-tiles .tile img{
-  width: 100%;
-  height: 100%;
-  display: block;
-  aspect-ratio: 16 / 9;
-  object-fit: contain;      /* show full logo/image */
-  background: rgba(0,0,0,.14);
-  padding: 18px;            /* breathing room around logos */
-}
-
-@media (max-width: 720px){
-  .connect-tiles{
-    grid-template-columns: 1fr 1fr;  /* 2-up on small screens */
-  }
-}
-/* Connect: clickable logo tiles – cleaner look */
-.connect-tiles{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
-  gap: 16px;
-  margin-top: 12px;
-}
-
-.connect-tiles .tile{
-  display: grid;               /* center the image */
-  place-items: center;
-  aspect-ratio: 16 / 9;        /* consistent tile height */
-  padding: 16px;               /* breathing room around logos */
-  border-radius: 16px;
-  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-  border: 1.6px solid var(--border);
-  box-shadow: var(--shadow);
-  transition: transform .15s ease, filter .2s ease, background .2s ease;
-}
-
-.connect-tiles .tile:hover{
-  transform: translateY(-2px);
-  filter: brightness(1.03);
-}
-
-.connect-tiles .tile img{
-  width: 80%;                  /* scale logo inside the tile */
-  max-width: 320px;
-  max-height: 80%;
-  height: auto;
-  object-fit: contain;         /* keep logos uncropped */
-  background: transparent;     /* remove dark box behind logo */
-  padding: 0;                  /* no inner padding on the image */
-}
-
-/* 2-up on small screens */
-@media (max-width: 720px){
-  .connect-tiles{
-    grid-template-columns: 1fr 1fr;
-  }
-}
-/* Tighten bullets only in the Points section */
-#points .card ul{
-  margin: .25rem 0 0;         /* shrink the list’s outside spacing */
-  padding-left: 1.1rem;       /* keep bullets aligned nicely */
-}
-#points .card li{
-  margin: 0;                  /* kill the global li margins */
-  line-height: 1.35;          /* (optional) slightly tighter lines */
-}
-/* Points: shrink space between title and bullets */
-#points .card h3{
-  margin-bottom: .35rem;   /* was ~.75–1rem */
-  line-height: 1.2;
-}
-#points .card h3 + ul{
-  margin-top: .15rem;      /* kill the extra gap before the list */
-}
-
-/* (keep bullets tight) */
-#points .card ul{ padding-left: 1.1rem; margin: 0; }
-#points .card li{ margin: .12rem 0; line-height: 1.32; }
-
-/* Ultra-tight spacing: titles ↔ bullets (≈ one third of before) */
-#points .card h3{ margin-bottom: .12rem !important; line-height: 1.12; }
-#points .card h3 + ul{ margin-top: .05rem !important; }
-
-/* Keep the list itself tight too */
-#points .card ul{ margin: 0 !important; padding-left: 1.05rem; }
-#points .card li{ margin: .08rem 0 !important; line-height: 1.28; }
-/* Micro-tight spacing for Points section */
-#points .card h3{ margin-bottom: .06rem !important; line-height: 1.10; }
-#points .card h3 + ul{ margin-top: .025rem !important; }
-
-#points .card ul{ margin: 0 !important; padding-left: 1.0rem; }
-#points .card li{ margin: .04rem 0 !important; line-height: 1.24; }
-
-
-  
-    /* Service buttons: side-by-side and responsive */
-    .btn-row{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:12px; }
-    .btn-row .btn{ white-space:nowrap; }
-</style>
+    /* Service section buttons side-by-side */
+    .btn-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 12px }
+    .btn-row .btn { white-space: nowrap }
+  </style>
 </head>
 <body>
   <nav class="site-nav"></nav>
@@ -178,10 +65,9 @@
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
           <a class="btn" href="https://rowannafme.org/events.html" target="_blank">See Upcoming Events</a>
           <a class="btn" href="https://rowannafme.org/resources.html" target="_blank">Member Resources</a>
-                 </div>
+        </div>
       </div>
       <div>
-        <!-- Bigger hero logo -->
         <img src="/images/logo.png" alt="Rowan NAfME logo"
              style="width: clamp(200px, 28vw, 360px); height:auto; margin-inline:auto;
                     filter:drop-shadow(0 10px 24px rgba(0,0,0,.25));">
@@ -212,120 +98,95 @@
           </article>
         </div>
       </div>
-    
+    </section>
 
-
-
-</div>
-
-</div>
-
-</section>
-    <!-- Connect (logos now .png) + 3 photo thumbnails -->
     <section class="section">
       <div class="container">
         <h2>Connect</h2>
         <p class="subtle">Follow us and explore our partner organizations.</p>
 
         <div class="connect-tiles">
-  <a class="tile" href="https://instagram.com/rowannafme" target="_blank" rel="noopener">
-    <img src="/images/social/instagram.png" alt="Instagram @rowannafme">
-  </a>
-
-  <a class="tile" href="https://www.instagram.com/prideoftheprofs/" target="_blank" rel="noopener" title="Rowan Marching Band">
-    <img src="/images/partners/rowan-band.png" alt="Rowan Marching Band">
-
-  <!-- NEW: Rowan String Teachers Association (ASTA student chapter) -->
-  <a class="tile" href="https://www.instagram.com/rowanasta/" target="_blank" rel="noopener" title="Rowan String Teachers Association">
-    <img src="/images/partners/rowan-asta.png" alt="Rowan String Teachers Association (ASTA)">
-  </a>
-
-
-  <a class="tile" href="https://www.instagram.com/composers.collective/" target="_blank" rel="noopener" title="Rowan Composers Collective">
-    <img src="/images/partners/rowan-comp.png" alt="Rowan Composers Collective">
-  </a>
-
-  </a>
-  <a class="tile" href="https://www.instagram.com/rowanchoirs/" target="_blank" rel="noopener" title="Rowan Choirs">
-    <img src="/images/partners/rowan-choir.png" alt="Rowan Choirs">
-  </a>
-
- <!-- NEW: Rowan ACDA -->
-  <a class="tile" href="https://rowanacda.org/" target="_blank" rel="noopener" title="Rowan ACDA">
-    <img src="/images/partners/rowan-acda.png" alt="Rowan ACDA (Choral Directors)">
-  </a>
-
-<a class="tile" href="https://nafme.org" target="_blank" rel="noopener">
-    <img src="/images/partners/nafme.png" alt="NAfME">
-  </a>
-
-  <a class="tile" href="https://www.njmea.org" target="_blank" rel="noopener">
-    <img src="/images/partners/njmea.png" alt="NJMEA">
-  </a>
-</div>
-<!-- 3-up photo preview (appears under Connect) -->
-              </div>
+          <a class="tile" href="https://instagram.com/rowannafme" target="_blank" rel="noopener">
+            <img src="/images/social/instagram.png" alt="Instagram @rowannafme">
+          </a>
+          <a class="tile" href="https://www.instagram.com/prideoftheprofs/" target="_blank" rel="noopener" title="Rowan Marching Band">
+            <img src="/images/partners/rowan-band.png" alt="Rowan Marching Band">
+          </a>
+          <a class="tile" href="https://www.instagram.com/rowanasta/" target="_blank" rel="noopener" title="Rowan String Teachers Association">
+            <img src="/images/partners/rowan-asta.png" alt="Rowan String Teachers Association (ASTA)">
+          </a>
+          <a class="tile" href="https://www.instagram.com/composers.collective/" target="_blank" rel="noopener" title="Rowan Composers Collective">
+            <img src="/images/partners/rowan-comp.png" alt="Rowan Composers Collective">
+          </a>
+          <a class="tile" href="https://www.instagram.com/rowanchoirs/" target="_blank" rel="noopener" title="Rowan Choirs">
+            <img src="/images/partners/rowan-choir.png" alt="Rowan Choirs">
+          </a>
+          <a class="tile" href="https://rowanacda.org/" target="_blank" rel="noopener" title="Rowan ACDA">
+            <img src="/images/partners/rowan-acda.png" alt="Rowan ACDA (Choral Directors)">
+          </a>
+          <a class="tile" href="https://nafme.org" target="_blank" rel="noopener">
+            <img src="/images/partners/nafme.png" alt="NAfME">
+          </a>
+          <a class="tile" href="https://www.njmea.org" target="_blank" rel="noopener">
+            <img src="/images/partners/njmea.png" alt="NJMEA">
+          </a>
+        </div>
+      </div>
     </section>
 
+    <section class="section" id="service">
+      <div class="container">
+        <h2>Service</h2>
+        <p class="subtle">How NAfME serves our schools and campus community.</p>
 
+        <article class="card" style="grid-column: span 12; margin-top:12px;">
+          <p>Rowan NAfME supports regional music education by volunteering at <strong>band</strong>, <strong>string</strong>, and <strong>vocal</strong> festivals, assisting local K–12 programs, and providing hands-on help for <strong>campus events</strong>.</p>
+          <p>We also provide opportunities for members to <strong>test lesson plans</strong> in a supportive environment and run <strong>peer tutoring</strong> and <strong>study groups</strong> for music majors who want extra support in theory, aural skills, conducting, music education coursework, and more.</p>
 
-<!-- Service: how we serve the community -->
-<section class="section" id="service">
-  <div class="container">
-    <h2>Service</h2>
-    <p class="subtle">How NAfME serves our schools and campus community.</p>
-
-    <article class="card" style="grid-column: span 12; margin-top:12px;">
-      <p>Rowan NAfME supports regional music education by volunteering at <strong>band</strong>, <strong>string</strong>, and <strong>vocal</strong> festivals, assisting local K–12 programs, and providing hands-on help for <strong>campus events</strong>.</p>
-      <p>We also provide opportunities for members to <strong>test lesson plans</strong> in a supportive environment and run <strong>peer tutoring</strong> and <strong>study groups</strong> for music majors who want extra support in theory, aural skills, conducting, music education coursework, and more.</p>
-
-      <div class="btn-row">
-        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdJhwNhmab0xuyOb0yrCuMUcwu0ytK5PNLOm7lRkkyMcMTBkA/viewform?usp=header" target="_blank" rel="noopener">Request NAfME Volunteers for Your Event</a>
-        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScuxi0f-retZpMKqLOUGWLHlJvdThdUS5k0i0Lf-B2eXzeb9w/viewform?usp=header" target="_blank" rel="noopener">Submit a Lesson Plan for Testing</a>
+          <div class="btn-row">
+            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdJhwNhmab0xuyOb0yrCuMUcwu0ytK5PNLOm7lRkkyMcMTBkA/viewform?usp=header" target="_blank" rel="noopener">Request NAfME Volunteers for Your Event</a>
+            <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScuxi0f-retZpMKqLOUGWLHlJvdThdUS5k0i0Lf-B2eXzeb9w/viewform?usp=header" target="_blank" rel="noopener">Submit a Lesson Plan for Testing</a>
+          </div>
+        </article>
       </div>
-    </article>
-  </div>
-</section>
-
-
+    </section>
 
     <section class="section" id="points">
-  <div class="container">
-    <h2>Points System</h2>
-    <p class="subtle">Rowan NAfME Points System</p>
+      <div class="container">
+        <h2>Points System</h2>
+        <p class="subtle">Rowan NAfME Points System</p>
 
-    <div class="grid" style="--grid-min:260px">
-      <article class="card">
-        <h3>General</h3>
-        <ul>
-          <li>Events — <strong>1 point</strong></li>
-          <li>Workshops — <strong>2 points</strong></li>
-          <li>General meetings — <strong>3 points</strong></li>
-          <li>PDs — <strong>4 points</strong></li>
-          <li>Bring a new friend — <strong>1 point</strong></li>
-        </ul>
-      </article>
+        <div class="grid" style="--grid-min:260px">
+          <article class="card">
+            <h3>General</h3>
+            <ul>
+              <li>Events — <strong>1 point</strong></li>
+              <li>Workshops — <strong>2 points</strong></li>
+              <li>General meetings — <strong>3 points</strong></li>
+              <li>PDs — <strong>4 points</strong></li>
+              <li>Bring a new friend — <strong>1 point</strong></li>
+            </ul>
+          </article>
 
-      <article class="card">
-        <h3>Volunteering</h3>
-        <ul>
-          <li>On-campus volunteering — <strong>4 points/hour</strong></li>
-          <li>Off-campus volunteering — <strong>5 points/hour</strong></li>
-          <li>Audition days — <strong>2 points/hour</strong></li>
-        </ul>
-      </article>
+          <article class="card">
+            <h3>Volunteering</h3>
+            <ul>
+              <li>On-campus volunteering — <strong>4 points/hour</strong></li>
+              <li>Off-campus volunteering — <strong>5 points/hour</strong></li>
+              <li>Audition days — <strong>2 points/hour</strong></li>
+            </ul>
+          </article>
 
-      <article class="card">
-        <h3>Fundraising</h3>
-        <ul>
-          <li>Bake sales — <strong>2 points / half hour</strong></li>
-          <li>Bring an item for a bake sale — <strong>2 points per item</strong></li>
-        </ul>
-      </article>
-    </div>
-  </div>
-</section>
-
+          <article class="card">
+            <h3>Fundraising</h3>
+            <ul>
+              <li>Bake sales — <strong>2 points / half hour</strong></li>
+              <li>Bring an item for a bake sale — <strong>2 points per item</strong></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer"></footer>
